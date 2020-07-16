@@ -22,15 +22,17 @@ class FormInterceptorInterface(private val expectedState: String,private val cal
         val tokenEncoded = values.find { it.startsWith(TOKEN) }
         val codeEncoded = values.find { it.startsWith(CODE) }
         val stateEncoded = values.find { it.startsWith(STATE) }
+        val userEncoded = values.find { it.startsWith(USER) }
 
-        if (stateEncoded != null &&(codeEncoded != null || tokenEncoded!=null)) {
+        if (stateEncoded != null &&(codeEncoded != null || tokenEncoded!=null|| userEncoded!=null)) {
             val stateValue = stateEncoded.substringAfter(KEY_VALUE_SEPARATOR)
             val codeValue = codeEncoded?.substringAfter(KEY_VALUE_SEPARATOR)
-            val idToken = tokenEncoded?.substringAfter(KEY_VALUE_SEPARATOR)
+            val tokenValue = tokenEncoded?.substringAfter(KEY_VALUE_SEPARATOR)
+            val userValue = userEncoded?.substringAfter(KEY_VALUE_SEPARATOR)
 
             if (stateValue == expectedState) {
                 // Success,
-                callback(SignInWithAppleResult.Success(codeValue?:"",idToken?:""))
+                callback(SignInWithAppleResult.Success(codeValue?:"",tokenValue?:"",stateValue,userValue?:""))
             } else {
                 // Error, state doesn't match.
                 callback(SignInWithAppleResult.Failure(IllegalArgumentException("state does not match")))
@@ -46,6 +48,7 @@ class FormInterceptorInterface(private val expectedState: String,private val cal
         private const val STATE = "state"
         private const val CODE = "code"
         private const val TOKEN = "id_token"
+        private const val USER = "user"
         private const val FORM_DATA_SEPARATOR = "|"
         private const val KEY_VALUE_SEPARATOR = "="
 

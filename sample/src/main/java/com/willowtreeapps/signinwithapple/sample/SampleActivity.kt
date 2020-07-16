@@ -32,7 +32,7 @@ class SampleActivity : AppCompatActivity() {
                 is SignInWithAppleResult.Success -> {
                     Toast.makeText(
                         this,
-                        "authorizationCode : ${result.authorizationCode}   \n\n   idToken : ${result.idToken}",
+                        "code : ${result.code}   \n\n   id_token : ${result.id_token}\n\n   state : ${result.state}\n\n   user : ${result.user}",
                         LENGTH_SHORT
                     ).show()
 

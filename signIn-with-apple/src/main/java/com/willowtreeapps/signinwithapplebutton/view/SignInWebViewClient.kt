@@ -18,7 +18,7 @@ internal class SignInWebViewClient(
         request: WebResourceRequest?
     ): WebResourceResponse? {
 
-        if(request?.method == "POST" && request?.url.toString().contains(attempt.redirectUri)){
+        if(request?.method == "POST" && request.url.toString().contains(attempt.redirectUri)){
             try {
                 Thread.currentThread().interrupt()
             }catch (ex: Exception){}
