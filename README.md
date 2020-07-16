@@ -38,12 +38,12 @@ First, follow Apple's instructions to set up Sign In with Apple [in your iOS app
 You should have created:
 
 - An App ID
-    - including the Sign In with Apple capability
+  - including the Sign In with Apple capability
 - A Service ID
-    - using the App ID as its primary
-    - mapped to a domain you control
-        - which Apple has verified
-    - including at least one Return URL
+  - using the App ID as its primary
+  - mapped to a domain you control
+    - which Apple has verified
+  - including at least one Return URL
 
 From this setup, you will need two OAuth arguments to use this library:
 
@@ -62,7 +62,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.khaledshamieh:signIn-with-apple:0.4'
+    implementation 'com.github.axxag:signIn-with-apple:0.4'
 }
 ```
 
@@ -118,8 +118,10 @@ override fun onCreate(savedInstanceState: Bundle?) {
                 when (result) {
                     is SignInWithAppleResult.Success -> {
                        // Handle success
-                       // result.authorizationCode
-                       // result.idToken
+                       // result.code
+                       // result.id_token
+                       // result.state
+                       // result.user
                     }
                     is SignInWithAppleResult.Failure -> {
                       // Handle failure
@@ -143,7 +145,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 When the user taps the button, it will present a web view configured to let the user authorize your service as an OAuth client of their Apple ID. After the user authorizes access, Apple will forward to the redirect URI and include an authorization code. The web view will intercept this request and locate the authorization code.
 
-If the user completes authentication, your callback will receive a `SignInWithAppleResult.Success` with the authorization code and idToken. Your backend endpoint can then phone home to Apple to [exchange the authorization code for tokens](https://developer.apple.com/documentation/signinwithapplerestapi/generate_and_validate_tokens), completing login.
+If the user completes authentication, your callback will receive a `SignInWithAppleResult.Success` with the authorization code, id_token, state, and user. Your backend endpoint can then phone home to Apple to [exchange the authorization code for tokens](https://developer.apple.com/documentation/signinwithapplerestapi/generate_and_validate_tokens), completing login.
 
 If instead there is a failure, your callback will receive a `SignInWithAppleResult.Failure` with the error.
 
@@ -168,17 +170,17 @@ You can adjust this sample project with your service configuration and try signi
 ## Related projects
 
 - Front end components offering a Sign In with Apple button
-    - [Juice](https://developer.apple.com/documentation/authenticationservices/adding_the_sign_in_with_apple_flow_to_your_app), Apple's sample project, as seen in [WWDC 2019, Session 706 - Introducing Sign In with Apple](https://developer.apple.com/videos/play/wwdc19/706/)
-    - [@react-native-community/apple-authentication](https://github.com/react-native-community/apple-authentication), a React Native library
-    - [OmniAuth::Apple](https://github.com/nhosoya/omniauth-apple), an OmniAuth strategy for Rails web apps
+  - [Juice](https://developer.apple.com/documentation/authenticationservices/adding_the_sign_in_with_apple_flow_to_your_app), Apple's sample project, as seen in [WWDC 2019, Session 706 - Introducing Sign In with Apple](https://developer.apple.com/videos/play/wwdc19/706/)
+  - [@react-native-community/apple-authentication](https://github.com/react-native-community/apple-authentication), a React Native library
+  - [OmniAuth::Apple](https://github.com/nhosoya/omniauth-apple), an OmniAuth strategy for Rails web apps
 - Backend components for Sign In with Apple
-    - [apple-auth](https://github.com/ananay/apple-auth), an NPM package for JavaScript backends
-    - [apple_id](https://github.com/nov/apple_id), a gem for Ruby backends
+  - [apple-auth](https://github.com/ananay/apple-auth), an NPM package for JavaScript backends
+  - [apple_id](https://github.com/nov/apple_id), a gem for Ruby backends
 
 ## Roadmap
 
 - Use a Chrome Custom Tab on Marshmallow and later so users know they are not being phished
-    - This will require consuming apps to configure App Links, but it's the Right Way to do it for OAuth security
+  - This will require consuming apps to configure App Links, but it's the Right Way to do it for OAuth security
 - Keep up with changes to Sign In with Apple during beta; 1.0 when the service itself is 1.0
 - Standard Android ripple effect? Material-themed Sign In with Apple button?
 
@@ -191,4 +193,3 @@ This project has adopted a [code of conduct](CODE_OF_CONDUCT.md) defined by the 
 ## Disclaimer
 
 The Apple logo belongs to Apple. It's included in this library because it's specified in Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/sign-in-with-apple/overview/). We're using it in good faith according to its intended purpose. As a consumer of this library, please read the HIG and avoid misusing Apple's intellectual property.
-

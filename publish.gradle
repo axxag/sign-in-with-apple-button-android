@@ -2,11 +2,11 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 
 
-group = 'com.github.khaledshamieh'
-version = '0.4'
+group = 'com.github.axxag'
+version = '0.5'
 
-def siteUrl = 'https://github.com/KhaledShamieh/sign-in-with-apple-button-android'
-def gitUrl = 'https://github.com/KhaledShamieh/sign-in-with-apple-button-android.git'
+def siteUrl = 'https://github.com/axxag/sign-in-with-apple-button-android'
+def gitUrl = 'https://github.com/axxag/sign-in-with-apple-button-android.git'
 
 task sourcesJar(type: Jar) {
     archiveClassifier = 'sources'
@@ -70,7 +70,7 @@ bintray {
 
         version {
             name = this.version //Bintray logical version name
-            desc = 'Enhance configuration & fetch id_token in addition to code'
+            desc = 'Enhance configuration & fetch id_token, state, user, and code'
             vcsTag = this.version
         }
     }
