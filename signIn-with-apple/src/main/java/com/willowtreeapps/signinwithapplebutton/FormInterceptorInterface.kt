@@ -32,7 +32,7 @@ class FormInterceptorInterface(private val expectedState: String,private val cal
 
             if (stateValue == expectedState) {
                 // Success,
-                callback(SignInWithAppleResult.Success(codeValue?:"",tokenValue?:"",stateValue?:"",userValue?:""))
+                callback(SignInWithAppleResult.Success(codeValue?:"",tokenValue?:"",stateValue,userValue?:""))
             } else {
                 // Error, state doesn't match.
                 callback(SignInWithAppleResult.Failure(IllegalArgumentException("state does not match")))
